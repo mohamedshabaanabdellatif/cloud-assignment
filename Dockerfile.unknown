@@ -1,0 +1,19 @@
+# Use a lightweight base image
+FROM python:3.9-slim
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the Python script and requirements file into the container
+COPY word_frequency_counter.py /app
+COPY random_paragraphs.txt /app
+
+# Install dependencies
+RUN pip install nltk
+
+# Download NLTK data
+RUN python -m nltk.downloader punkt
+RUN python -m nltk.downloader stopwords
+
+# Command to run the Python script
+CMD ["python", "word_frequency_counter.py"]
